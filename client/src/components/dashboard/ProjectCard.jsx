@@ -1,4 +1,4 @@
-import { FiGithub, FiExternalLink, FiPin } from "react-icons/fi";
+import { FiGithub, FiExternalLink, FiMapPin } from "react-icons/fi";
 import { getColor, getStatus } from "../../utils/colors";
 
 // Icon map — react-icons/fi names used in the DB
@@ -36,7 +36,7 @@ export default function ProjectCard({ project, onClick }) {
           <h3 className="text-sm font-medium text-zinc-100 leading-snug group-hover:text-white transition-colors">
             {project.title}
           </h3>
-          {project.pinned && <FiPin size={12} className="text-zinc-600 flex-shrink-0 mt-0.5" />}
+          {project.pinned && <FiMapPin size={12} className="text-zinc-600 flex-shrink-0 mt-0.5" />}
         </div>
 
         <p className="text-xs text-zinc-500 leading-relaxed mb-3 line-clamp-3">

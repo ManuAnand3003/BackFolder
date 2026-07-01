@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiFolder, FiMail, FiLock, FiAlertCircle } from "react-icons/fi";
+import { FiMail, FiLock, FiAlertCircle } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
 
 export default function LoginPage() {
@@ -27,12 +27,26 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
-        {/* Logo */}
-        <div className="flex items-center gap-2.5 mb-8">
-          <div className="w-9 h-9 rounded-lg bg-brand flex items-center justify-center">
-            <FiFolder size={18} className="text-white" />
+        {/* Brand */}
+        <div className="mb-8 rounded-3xl border border-zinc-800 bg-zinc-900/70 p-4 shadow-2xl shadow-black/20 backdrop-blur-sm">
+          <img
+            src="/brandax-banner.png"
+            alt="Brandax branding"
+            className="w-full h-auto rounded-2xl"
+          />
+          <div className="mt-4 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl border border-zinc-700 bg-zinc-950 flex items-center justify-center overflow-hidden">
+              <img
+                src="/brandax-mark.png"
+                alt="Brandax mark"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <p className="text-sm text-zinc-500">Private workspace</p>
+              <span className="text-lg font-medium text-zinc-100 tracking-tight">backfolder</span>
+            </div>
           </div>
-          <span className="text-xl font-medium text-zinc-100 tracking-tight">backfolder</span>
         </div>
 
         <h1 className="text-2xl font-medium text-zinc-100 mb-1">Welcome back</h1>

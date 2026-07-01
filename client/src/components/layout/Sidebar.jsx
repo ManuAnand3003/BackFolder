@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import {
-  FiFolder, FiGrid, FiUser, FiCompass, FiBookmark,
+  FiGrid, FiUser, FiCompass, FiBookmark,
   FiTag, FiSettings, FiLogOut, FiShield,
 } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
@@ -29,8 +29,8 @@ export default function Sidebar() {
     <aside className="w-52 flex-shrink-0 bg-zinc-900 border-r border-zinc-800 flex flex-col h-screen sticky top-0">
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-4 py-4 border-b border-zinc-800">
-        <div className="w-7 h-7 rounded-md bg-brand flex items-center justify-center">
-          <FiFolder size={14} className="text-white" />
+        <div className="w-7 h-7 rounded-md overflow-hidden bg-zinc-950 border border-zinc-800 flex items-center justify-center">
+          <img src="/brandax-mark.png" alt="Brandax" className="w-full h-full object-cover" />
         </div>
         <span className="font-medium text-zinc-100 text-base tracking-tight">backfolder</span>
       </div>
