@@ -15,9 +15,9 @@ cd ../client && npm install
 
 ### 2. Set up environment
 cp server/.env.example server/.env
-# Set MONGO_URI to your Atlas cluster and set JWT_SECRET in server/.env
+# Set MONGO_URI to your MongoDB connection string and set JWT_SECRET in server/.env
 
-### 3. Seed the database (creates 5 users + sample projects)
+### 3. Seed the database (creates or updates 5 users + sample projects)
 cd server && npm run seed
 
 ### 4. Run dev servers (two terminals)
@@ -28,6 +28,7 @@ cd client && npm run dev      # → http://localhost:5173
 - The API is backend-only on `http://localhost:5000`; the UI lives on the Vite dev server at `http://localhost:5173`.
 - The login page and sidebar now use the provided Brandax logo assets from `client/public/`.
 - If the MongoDB Atlas cluster rejects connections, check the Atlas IP allowlist and database user permissions.
+- The seed script is idempotent and hashes user passwords before writing them, so rerunning it will not wipe the database.
 
 ## Seeded accounts
 | User      | Email                    | Password    | Role   |

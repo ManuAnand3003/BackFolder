@@ -1,5 +1,6 @@
 require("dotenv").config({ path: require("path").resolve(__dirname, "../.env") });
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const Project = require("../models/Project");
 
@@ -13,17 +14,34 @@ const users = [
 
 async function seed() {
   await mongoose.connect(process.env.MONGO_URI);
-  await User.deleteMany({});
-  await Project.deleteMany({});
-  const created = await User.insertMany(users);
-  console.log("Users seeded:", created.map(u => u.username));
-  const manu = created[0];
-  await Project.create([
+
+  for (const user of users) {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    await User.findOneAndUpdate(
+      { email: user.email },
+      { $set: { ...user, password: hashedPassword } },
+      { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true, context: "query" }
+    );
+  }
+
+  const manu = await User.findOne({ email: "manu@backfolder.dev" });
+  console.log("Users seeded or updated for:", users.map((u) => u.username));
+
+  const projects = [
     { title: "EmoVision", description: "Real-time facial emotion recognition using ONNX ensemble, WebSocket streaming, and continual learning.", author: manu._id, status: "done", tags: ["ml", "fastapi", "onnx"], coverIcon: "FiEye", coverColor: "teal", pinned: true },
     { title: "VisionCaption", description: "Image captioning with BLIP-Large, attention heatmaps, beam and nucleus sampling.", author: manu._id, status: "done", tags: ["ml", "fastapi", "nlp"], coverIcon: "FiImage", coverColor: "teal" },
     { title: "AERIS v2", description: "Local AI companion with four-tier memory, LoRA self-improvement, and OS-level Hyprland integration.", author: manu._id, status: "in-progress", tags: ["llm", "lora", "arch-linux"], coverIcon: "FiCpu", coverColor: "purple", pinned: true },
-  ]);
-  console.log("Projects seeded.");
+  ];
+
+  for (const project of projects) {
+    await Project.findOneAndUpdate(
+      { title: project.title, author: manu._id },
+      { $set: project },
+      { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true, context: "query" }
+    );
+  }
+
+  console.log("Projects seeded or updated.");
   process.exit(0);
 }
 
